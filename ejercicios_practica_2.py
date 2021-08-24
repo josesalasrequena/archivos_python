@@ -27,7 +27,24 @@ def ej3():
     # para cumplir con el enunciado del ejercicio
 
     # Comenzar aquí, recuerde el identado dentro de esta funcion
-    
+    csvfile = open('stock.csv','r')
+    ferreteria = list(csv.DictReader(csvfile))
+    cantidad_tornillos = 0
+    cantidad_tuercas = 0
+    cantidad_arandelas = 0
+
+    for i in range(len(ferreteria)):
+        articulos = ferreteria [i]
+        for k,v in articulos.items():
+            if k == 'tornillos':
+                cantidad_tornillos += int(v)
+            elif k == 'tuercas':
+                cantidad_tuercas += int(v)
+            else:
+                cantidad_arandelas += int(v)
+    print('La cantidad de tornillos es:', cantidad_tornillos, 'La cantidad de tuercas es:', cantidad_tuercas,
+    'La cantidad de arandelas es:', cantidad_arandelas)
+    csvfile.close()
 
 
 def ej4():
@@ -48,6 +65,33 @@ def ej4():
 
     # Comenzar aquí, recuerde el identado dentro de esta funcion
 
+    csvfile = open('propiedades.csv','r')     
+    propiedades = list(csv.DictReader(csvfile))
+    sin_ambient = 0
+    dos_ambient = 0
+    tres_ambient = 0
+    error = 0
+    for i in range(len(propiedades)):       
+       dpto = propiedades[i]
+       for k,v in dpto.items():
+          try:
+              ambientes = int(v)
+              if ambientes == 2:
+                dos_ambient += int(v)
+              elif ambientes == 3:
+                tres_ambient += int(v)
+              elif ambientes == " ":
+                error += int(v)
+              else:
+                sin_ambient += int(v)
+          except:
+            print("Existen Departamentos que no tienen suficiente informacion")          
+    print("Departamentos de dos ambientes:",dos_ambient)
+    print("Departamentos de tres ambientes:",tres_ambient)
+    print("Departamentos sin informacion:",error)
+    print('Departamentos con error en informacion:',sin_ambient)
+   
+    csvfile.close()
 
 if __name__ == '__main__':
     print("Bienvenidos a otra clase de Inove con Python")
